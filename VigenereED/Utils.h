@@ -29,7 +29,11 @@ public:
         return -1;
     }
     void ClearConsole(void) {
-        cout << "<console clear>\n";
+        #if defined(_WIN32) || defined(_WIN64)
+                system("cls");
+        #else defined(__linux__) || defined(__unix__)
+                system("clear");
+        #endif
     }
     string toUpper(string s)
     {
