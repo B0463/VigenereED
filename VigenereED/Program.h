@@ -1,8 +1,12 @@
+/* Program */
 #pragma once
 
 class Program {
-Utils Utils;
+    /* Required Packs */
+    Utils Utils;
 private:
+    /* Private */
+    /* Functions */
     void PrintMainMenu(void) {
         Utils.ClearConsole();
         cout <<
@@ -27,6 +31,8 @@ private:
         return userChoice;
     }
 public:
+    /* Public */
+    /* Functions */
     int Main(void) {
         Encode Encode;
         Decode Decode;

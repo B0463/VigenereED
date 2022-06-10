@@ -1,7 +1,12 @@
+/* Decode */
 #pragma once
+
 class Decode {
+    /* Required Packs */
     Utils Utils;
 private:
+    /* Private */
+    /* Functions */
     string QueryText(void) {
         string textBuffer;
         cout << "Type text to decode: ";
@@ -32,11 +37,11 @@ private:
         }
     }
     string decode(string text, string key) {
-        if (!Utils.VerifyAlfaStringSW(key)) {
+        if (!Utils.VerifyCharString(key, Utils.pchar)) {
             cout << "invalid key, use a-z A-Z chars\n";
             return "";
         }
-        if (!Utils.VerifyAlfaStringMW(text)) {
+        if (!Utils.VerifyCharString(text, Utils.pchar)) {
             cout << "invalid text, use a-z A-Z \" \" chars\n";
             return "";
         }
@@ -73,13 +78,22 @@ private:
         }
 
 
-        for (int i = 0;i < text.length();i++) {
-            if (text[i] == ' ') end = end + ' ';
-            else end = end + DecodeTable(text[i], fKey[i]);
+        for (int i = 0; i < text.length(); i++) {
+            bool conf = false;
+            for (int j = 0; j < Utils.cchar.length(); j++) {
+                if (text[i] == Utils.cchar[j]) {
+                    end = end + Utils.cchar[j];
+                    conf = true;
+                    break;
+                };
+            }
+            if (!conf) end = end + DecodeTable(text[i], fKey[i]);
         }
         return end;
     }
 public:
+    /* Public */
+    /* Functions */
     void init(void) {
         Utils.ClearConsole();
         string text = Utils.toUpper(QueryText());

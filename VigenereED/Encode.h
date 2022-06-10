@@ -1,7 +1,12 @@
+/* Encode */
 #pragma once
+
 class Encode {
-Utils Utils;
+    /* Required Packs */
+    Utils Utils;
 private:
+    /* Private */
+    /* Functions */
     string QueryText(void) {
         string textBuffer;
         cout << "Type text to encode: ";
@@ -35,12 +40,12 @@ private:
         }
     }
     string encode(string text, string key) {
-        if (!Utils.VerifyAlfaStringSW(key)) {
-            cout << "invalid key, use a-z A-Z chars\n";
+        if (!Utils.VerifyCharString(key, Utils.pchar)) {
+            cout << "invalid key\n";
             return "";
         }
-        if (!Utils.VerifyAlfaStringMW(text)) {
-            cout << "invalid text, use a-z A-Z \" \" chars\n";
+        if (!Utils.VerifyCharString(text, Utils.pchar)) {
+            cout << "invalid text\n";
             return "";
         }
         string fKey = "";
@@ -76,12 +81,21 @@ private:
         }
 
         for (int i = 0;i < text.length();i++) {
-            if (text[i] == ' ') end = end + ' ';
-            else end = end + EncodeTable(text[i], fKey[i]);
+            bool conf = false;
+            for (int j = 0; j < Utils.cchar.length(); j++) {
+                if (text[i] == Utils.cchar[j]) {
+                    end = end + Utils.cchar[j];
+                    conf = true;
+                    break;
+                };
+            }
+            if (!conf) end = end + EncodeTable(text[i], fKey[i]);
         }
         return end;
     }
 public:
+    /* Public */
+    /* Functions */
     void init(void) {
         Utils.ClearConsole();
         string text = Utils.toUpper(QueryText());

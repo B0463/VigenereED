@@ -1,8 +1,14 @@
+/* Utils */
 #pragma once
 
 class Utils {
 private:
 public:
+    /* Public */
+    /* Vars */
+    string pchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890:;?!/\\.,\"'()[]{}-_ ";
+    string cchar = ":;?!/\\.,\"'()[]{}-_ ";
+    /* Functions */
     int StrToInt(string choiceBuffer) {
         string okChars = "0123456789";
         bool confirm = true;
@@ -59,39 +65,16 @@ public:
         );
         return s;
     }
-    bool VerifyAlfaStringSW(string tvas) {
-        string okChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    bool VerifyCharString(string stv, string perms) {
         bool confirm = true;
-        for (int i = 0;i < tvas.length();i++) {
+        for (int i = 0; i < stv.length(); i++) {
             bool confirmInter = false;
-            for (int j = 0;j < 26;j++) {
-                if (tvas[i] == okChars[j]) {
+            for (int j = 0; j < perms.length(); j++) {
+                if (stv[i] == perms[j]) {
                     confirmInter = true;
                     break;
                 }
-                if (j == 25) {
-                    break;
-                }
-            }
-            if (confirmInter) {
-                continue;
-            }
-            confirm = false;
-            break;
-        }
-        return confirm;
-    }
-    bool VerifyAlfaStringMW(string tvas) {
-        string okChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-        bool confirm = true;
-        for (int i = 0;i < tvas.length();i++) {
-            bool confirmInter = false;
-            for (int j = 0;j < 27;j++) {
-                if (tvas[i] == okChars[j]) {
-                    confirmInter = true;
-                    break;
-                }
-                if (j == 26) {
+                if (j == perms.length() - 1) {
                     break;
                 }
             }
